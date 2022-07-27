@@ -3,6 +3,7 @@ package org.example.demosrping260722.layers;
 import org.example.demosrping260722.enumDir.Authorities;
 import org.example.demosrping260722.exceprion.InvalidCredentials;
 import org.example.demosrping260722.exceprion.UnauthorizedUser;
+import org.example.demosrping260722.user.MyUserSpringTest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,11 +17,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<Authorities> getAuthorities(String user,String password){
-        if(isEmpty(user) || isEmpty(password)){
-            throw new InvalidCredentials("params must not be empty");
+    public List<Authorities> getAuthorities(MyUserSpringTest user){
+        if(isEmpty(user.getUser()) || isEmpty(user.getPassword())){
+            throw  new InvalidCredentials("param is null");
         }
-        List<Authorities> array = userRepository.getUserAuthorities(user,password);
+        List<Authorities> array = userRepository.getUserAuthorities(user);
         if(isEmpty(array)){
             throw  new UnauthorizedUser("collection must not be empty");
         }
